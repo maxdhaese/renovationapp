@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="styleNEW.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <title>Renovating List</title>
+            
+<style>
+    body {
+        background-image: url('image/worktools.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        
+        text-align: center;
+	    font-family: 'Open Sans', sans-serif;
+
+}
+
+.intro {
+	margin: 30px 0px;
+	font-weight: bold;
+}
+
+h1 {
+	color: #274d41;
+	text-transform: uppercase;
+	font-weight: 800;
+    background-color: rgb(248, 250, 250);
+    display: inline-block;
+}
+
+p {
+	font-weight: 600;
+}
+
+#first {
+	margin-top: 10px;
+	color: #274d41;
+    background-color: rgb(248, 250, 250);
+    display:block;
+}
+
+#second {
+	color: #274d41;
+    background-color: rgb(248, 250, 250);
+    display: block;
+
+}
+
+#third {
+	color: #274d41;
+	margin-bottom: 30px;
+    background-color: rgb(245, 248, 248);
+    display: block;
+    
+}
+
+
+#enter {
+	border: none;
+	padding: 5px 15px;
+	border-radius: 5px;
+	color: rgb(5, 5, 5);
+	background-color: #025F70;
+	transition: all 0.75s ease;
+	-webkit-transition: all 0.75s ease;
+	-moz-transition: all 0.75s ease;
+	-ms-transition: all 0.75s ease;
+	-o-transition: all 0.75 ease;
+	font-weight: normal;
+}
+
+#enter:hover{
+	background-color: rgb(246, 246, 248);
+	color: rgb(7, 7, 7);
+}
+
+ul {
+	text-align: left;
+	margin-top: 20px;
+}
+
+
+li {
+	list-style: none;
+	padding: 10px 20px;
+	color: #ffffff;
+	text-transform: capitalize;
+	font-weight: 600;
+	border: 2px solid #025f70;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	background: #4EB9CD;
+	transition: all 0.75s ease;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5 ease;
+}
+
+li:hover {
+	background: #76CFE0;
+}
+
+li > button {
+	font-weight: normal;
+	background: none;
+	border: none;
+	float: right;
+	color: #025f70;
+	font-weight: 800;
+}
+
+input {
+	border-radius: 5px;
+	min-width: 65%;
+	padding: 5px;
+	border: none;
+}
+
+
+.done {
+	background: #51DF70 !important;
+	color: #00891E;
+}
+
+.delete {
+	display: none;
+}
+
+
+</style>
+
+   
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+    <div class="intro col-12">
+        <h1>Renovation TO DO's</h1>
+    <div>
+        <div class="border1"></div>
+            <div c> </div>
+        </div>
+    </div>
+</div>
+        
+<div class="row">
+    <div class="helpText col-12">
+        <p id="first">Enter new To Do's</p>
+        <p id="second">Click on the To Do to mark it as done.</p>
+        <p id="third">Remove To Do's by clicking X on the right</p>
+    </div>
+</div>
+        
+<div class="row">
+    <div class="col-12">
+        <input id="userInput" type="text" placeholder="New To Do..." maxlength="50">
+        <button id="enter"><i class="fas fa-pencil-alt"></i></button>
+    </div>
+</div>
+        
+                
+<div class="row">
+    <div class="listItems col-12">
+        <ul class="col-12 offset-0 col-sm-8 offset-sm-2">
+        </ul>
+    </div>
+</div>
+        
+</div>
+<script type="text/javascript" src="script_method3.js"></script>
+
+<script>
+        var enterButton = document.getElementById("enter");
+        var input = document.getElementById("userInput");
+        var ul = document.querySelector("ul");
+        var item = document.getElementsByTagName("li");
+        
+        function inputLength(){
+            return input.value.length;
+        } 
+        
+        function listLength(){
+            return item.length;
+        }
+        
+        function createListElement() {
+            var li = document.createElement("li"); 
+            li.appendChild(document.createTextNode(input.value)); 
+            ul.appendChild(li); 
+            input.value = ""; 
+        
+        
+            //START STRIKETHROUGH
+            // because it's in the function, it only adds it for new items
+            function crossOut() {
+                li.classList.toggle("done");
+            }
+        
+            li.addEventListener("click",crossOut);
+            //END STRIKETHROUGH
+        
+        
+            // START ADD DELETE BUTTON
+            var dBtn = document.createElement("button");
+            dBtn.appendChild(document.createTextNode("X"));
+            li.appendChild(dBtn);
+            dBtn.addEventListener("click", deleteListItem);
+            // END ADD DELETE BUTTON
+        
+        
+            //ADD CLASS DELETE (DISPLAY: NONE)
+            function deleteListItem(){
+                li.classList.add("delete")
+            }
+            //END ADD CLASS DELETE
+        }
+        
+        
+        function addListAfterClick(){
+            if (inputLength() > 0) { //makes sure that an empty input field doesn't create a li
+                createListElement();
+            }
+        }
+        
+        function addListAfterKeypress(event) {
+            if (inputLength() > 0 && event.which ===13) { //this now looks to see if you hit "enter"/"return"
+                //the 13 is the enter key's keycode, this could also be display by event.keyCode === 13
+                createListElement();
+            } 
+        }
+        
+        
+        enterButton.addEventListener("click",addListAfterClick);
+        
+        input.addEventListener("keypress", addListAfterKeypress);
+        
+        </script>
+
+
+    
+</body>
+</html>
